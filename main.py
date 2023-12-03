@@ -1,15 +1,17 @@
+import io
 import sys
 from random import randint
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.QtGui import QPainter, QColor, QPen, QBrush
+from UI import Ui_MainWindow
 
 
-class DrawYellowCircle(QMainWindow):
+class DrawYellowCircle(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("UI.ui", self)
+        self.setupUi(self)
         self.do_paint = False
         self.btn.clicked.connect(self.paint)
 
@@ -25,9 +27,10 @@ class DrawYellowCircle(QMainWindow):
         self.repaint()
 
     def draw(self, qp):
-        pen = QPen(QColor(255, 255, 0))
+        r, g, b = randint(0, 256), randint(0, 256), randint(0, 256)
+        pen = QPen(QColor(r, g, b))
         qp.setPen(pen)
-        qp.setBrush(QBrush(QColor(255, 255, 0)))
+        qp.setBrush(QBrush(QColor(r, g, b)))
         x = randint(1, 255)
         y = randint(1, 255)
         delta = randint(1, 100)
